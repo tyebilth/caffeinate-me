@@ -30,9 +30,8 @@ public class OrderCoffeeSteps {
 
     @Then("^Barry should know that the order is (.*)")
     public void barry_should_know_that_the_order_is(OrderStatus expectedStatus) {
-        assertThat(coffeeShop.getOrderFor(cathy)).isPresent();
-        coffeeShop.getOrderFor(cathy).ifPresent(
-                order -> assertThat(order.getStatus()).isEqualTo(expectedStatus)
-        );
+        Order cathysOrder = coffeeShop.getOrderFor(cathy)
+                                      .orElseThrow(() -> new AssertionError("No order found!"));
+        assertThat(cathysOrder.getStatus()).isEqualTo(expectedStatus);
     }
 }
