@@ -31,6 +31,12 @@ public class OrderCoffeeSteps {
         cathy.placesAnOrderFor(order).at(coffeeShop);
     }
 
+    @And("Cathy is {int} minutes away")
+    public void customerIsMinutesAway(int etaInMinutes) {
+        coffeeShop.setCustomerETA(cathy, etaInMinutes);
+    }
+
+
     @Then("Barry should receive the order")
     public void barry_should_receive_the_order() {
         assertThat(coffeeShop.getPendingOrders()).contains(order);
